@@ -3,8 +3,8 @@
 A comprehensive Java implementation of a multilevel parking lot system using object-oriented design principles, SOLID principles, and design patterns.
 
 ## 📊 UML Class Diagram
+![UML Diagram](https://drive.google.com/uc?id=15BjXRy2l_rYo9QAuOvNCcwdKY9bPVa-1)
 
-**[View Complete UML Class Diagram](https://drive.google.com/file/d/15BjXRy2l_rYo9QAuOvNCcwdKY9bPVa-1/view?usp=sharing)**
 
 The diagram shows the complete system architecture with all classes, interfaces, relationships, and design patterns used in the implementation.
 
