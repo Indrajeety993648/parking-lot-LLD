@@ -28,6 +28,8 @@ Parking lot/
 ├── SlotDecorator.java        # Abstract decorator for slot features
 ├── ChargingDecorator.java    # Charging feature decorator
 ├── CleaningDecorator.java    # Cleaning feature decorator
+├── ParkingStrategy.java      # Strategy interface for slot allocation
+├── NearestParkingStrategy.java # Nearest slot allocation strategy
 ├── Ticket.java               # Parking ticket entity
 ├── Bill.java                 # Parking bill entity
 ├── Floor.java                # Floor management
@@ -47,10 +49,12 @@ Parking lot/
    - Allows dynamic addition of features without subclass explosion
    - Features can be combined (e.g., Charging + Cleaning slot)
 
-2. **Strategy Pattern**: For slot allocation strategy using TreeSet
+2. **Strategy Pattern**: For parking slot allocation strategies
 
-   - O(log n) efficient slot allocation and deallocation
-   - Easy to swap different allocation algorithms
+   - Currently implements `NearestParkingStrategy` for optimal user experience
+   - Easily extensible for future strategies (cheapest, random, premium, etc.)
+   - Runtime strategy switching capability: `parkingLot.setParkingStrategy(new CustomStrategy())`
+   - O(log n) efficient slot allocation and deallocation using TreeSet
 
 3. **Template Method**: In SlotDecorator for common slot operations
 
@@ -120,6 +124,10 @@ Base charges: $5.0, Extra charges: $10.0, Total: $15.0
 
 ## 🔮 Future Enhancements
 
+- **Additional Parking Strategies**:
+  - `CheapestParkingStrategy`: Allocate lowest-cost slots first
+  - `RandomParkingStrategy`: Distribute load evenly across facility
+  - `PremiumParkingStrategy`: Prioritize slots with premium features
 - **Reservation System**: Pre-booking slots with time slots
 - **Monthly Parking Passes**: Subscription-based parking
 - **Payment Integration**: Multiple payment methods (card, digital wallet)
@@ -146,4 +154,4 @@ The `Main.java` class provides a comprehensive demonstration showing:
 - **Extensibility**: New features via Decorator pattern without code modification
 - **Performance**: O(log n) operations for slot management
 - **Flexibility**: Configurable pricing strategies and allocation algorithms
-"# parking-lot-LLD" 
+  "# parking-lot-LLD"

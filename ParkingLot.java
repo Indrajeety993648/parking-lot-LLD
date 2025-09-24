@@ -2,13 +2,16 @@ import java.util.*;
 
 /**
  * Main class representing the entire parking lot system
- * Manages floors, gates, and slot allocation strategy
+ * Manages floors, gates, and slot allocation strategy using Strategy pattern
  */
 public class ParkingLot {
     private final List<Floor> floors;
     private final List<EntryGate> entryGates;
     private final List<ExitGate> exitGates;
     private int ticketCounter = 1;
+
+    // Strategy pattern for parking allocation
+    private ParkingStrategy parkingStrategy;
 
     // Efficient data structure for slot allocation - TreeSet for O(log n)
     // operations
@@ -21,12 +24,26 @@ public class ParkingLot {
         this.exitGates = new ArrayList<>();
         this.availableSlots = new HashMap<>();
 
+        // Default strategy is nearest parking
+        this.parkingStrategy = new NearestParkingStrategy();
+
         // Initialize TreeSets for each vehicle size
         for (VehicleSize size : VehicleSize.values()) {
             availableSlots.put(size, new TreeSet<>(Comparator
                     .comparingInt((Slot s) -> s.getDistanceToGate(0))
                     .thenComparing(Slot::getId)));
         }
+    }
+
+    /**
+     * Constructor with custom parking strategy
+     * 
+     * @param strategy The parking allocation strategy to use
+     */
+    public ParkingLot(ParkingStrategy strategy) {
+        this();
+        this.parkingStrategy = strategy;
+        System.out.println("ParkingLot initialized with: " + strategy.getStrategyName());
     }
 
     public void addFloor(Floor floor) {
@@ -54,37 +71,33 @@ public class ParkingLot {
     }
 
     /**
-     * Allocates the nearest available slot that can accommodate the vehicle
-     * Strategy: Find smallest slot size >= vehicle size, then pick nearest to gate
+     * Allocates a slot using the current parking strategy
      * 
      * @param vehicle The vehicle requesting parking
      * @param gateId  The gate ID (for distance calculation)
      * @return Allocated slot or null if no suitable slot available
      */
     public Slot allocateSlot(Vehicle vehicle, int gateId) {
-        // Check slots from vehicle size upwards (small vehicle can use larger slot)
-        for (VehicleSize size : VehicleSize.values()) {
-            if (size.ordinal() >= vehicle.getSize().ordinal()) {
-                TreeSet<Slot> slots = availableSlots.get(size);
+        return parkingStrategy.allocateSlot(vehicle, gateId, availableSlots);
+    }
 
-                // Find first available slot (TreeSet is sorted by distance)
-                Iterator<Slot> iterator = slots.iterator();
-                while (iterator.hasNext()) {
-                    Slot slot = iterator.next();
-                    if (!slot.isOccupied()) {
-                        iterator.remove(); // Remove from available slots
-                        System.out.println("Allocated slot " + slot.getId() +
-                                " (size: " + slot.getSize() +
-                                ", features: " + slot.getFeatures() +
-                                ") to vehicle " + vehicle.getId());
-                        return slot;
-                    }
-                }
-            }
-        }
+    /**
+     * Sets a new parking strategy
+     * 
+     * @param strategy The new parking strategy to use
+     */
+    public void setParkingStrategy(ParkingStrategy strategy) {
+        this.parkingStrategy = strategy;
+        System.out.println("Parking strategy changed to: " + strategy.getStrategyName());
+    }
 
-        System.out.println("No suitable slot available for vehicle: " + vehicle);
-        return null;
+    /**
+     * Gets the current parking strategy
+     * 
+     * @return The current parking strategy
+     */
+    public ParkingStrategy getParkingStrategy() {
+        return parkingStrategy;
     }
 
     /**

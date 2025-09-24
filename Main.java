@@ -148,4 +148,5 @@ public class Main {
         System.out.println("Slot valetSlot = new ValetDecorator(basicSlot, 20.0);");
         System.out.println("===========================");
     }
+
 }
