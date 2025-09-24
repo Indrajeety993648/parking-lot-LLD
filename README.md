@@ -146,3 +146,4 @@ The `Main.java` class provides a comprehensive demonstration showing:
 - **Extensibility**: New features via Decorator pattern without code modification
 - **Performance**: O(log n) operations for slot management
 - **Flexibility**: Configurable pricing strategies and allocation algorithms
+"# parking-lot-LLD" 
