@@ -4,7 +4,7 @@ A comprehensive Java implementation of a multilevel parking lot system using obj
 
 ## 📊 UML Class Diagram
 
-**[View Complete UML Class Diagram](https://drive.google.com/file/d/15BjXRy2l_rYo9QAuOvNCcwdKY9bPVa-1/view?usp=sharing)**
+![UML Diagram](https://drive.google.com/uc?id=17jfywVF32Ey8ky6PrvwOAQrk1yX-ItLe)
 
 The diagram shows the complete system architecture with all classes, interfaces, relationships, and design patterns used in the implementation.
 
